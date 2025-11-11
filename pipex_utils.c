@@ -6,7 +6,7 @@
 /*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:09:31 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/11 20:51:16 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2025/11/11 21:03:04 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ pid_t crea_process(char **av, int *pipefd, char **envp, int fd_in)
 	int	i;
 	pid_t pid;
 	char **cmd1;
-	char **cmd_path;
+	char *cmd_path;
 
 	i = 0;
 	pid = fork();
@@ -101,9 +101,13 @@ pid_t crea_process(char **av, int *pipefd, char **envp, int fd_in)
 	if (pid == 0)
 	{
 		dup2(fd_in, 0);
-		dup2(pipefd[2], 1);
+		dup2(pipefd[1], 1);
 		cmd1 = ft_split(av[2], ' ');
-		cmd_path = find_path(envp);
+		cmd_path = find_path(envp, cmd1);
+		close(fd_in);
+		close(pipefd[1]);
 		execve(cmd_path, cmd1, envp);
 	}
+	else
+		
 }
