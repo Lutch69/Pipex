@@ -6,7 +6,7 @@
 /*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:09:31 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/11 21:03:04 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2025/11/12 05:50:06 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*find_path(char **envp, char **cmd)
 	char	**path;
 
 	i = 0;
-	while(ft_strncmp(envp[i], "PATH=", 5) != 0)
+	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;
 	if (!envp[i])
 		return (NULL);
@@ -60,14 +60,21 @@ char	*find_path(char **envp, char **cmd)
 		if (access(cmd_path, X_OK) == 0)
 		{
 			ft_freetab(path);
-			return(cmd_path);
+			return (cmd_path);
 		}
 		else
 			free(cmd_path);
 		i++;
 	}
 	ft_freetab(path);
-	return(NULL);
+	return (NULL);
+}
+void	close_all(t_data *data)
+{
+	close(data->fd_in);
+	close(data->fd_out);
+	close(data->pipe_fd[0]);
+	close(data->pipe_fd[1]);
 }
 int	open_fd_in(char *filename)
 {
@@ -76,7 +83,7 @@ int	open_fd_in(char *filename)
 	fd_in = open("input", O_RDONLY);
 	if (fd_in < 0)
 		ft_error("Can't open files for input\n");
-	return(fd_in);
+	return (fd_in);
 }
 
 int	open_fd_out(char *filename)
@@ -86,28 +93,6 @@ int	open_fd_out(char *filename)
 	fd_out = open("output", O_WRONLY);
 	if (fd_out < 0)
 		ft_error("Can't open files for output\n");
-	return(fd_out);
+	return (fd_out);
 }
-pid_t crea_process(char **av, int *pipefd, char **envp, int fd_in)
-{
-	int	i;
-	pid_t pid;
-	char **cmd1;
-	char *cmd_path;
 
-	i = 0;
-	pid = fork();
-
-	if (pid == 0)
-	{
-		dup2(fd_in, 0);
-		dup2(pipefd[1], 1);
-		cmd1 = ft_split(av[2], ' ');
-		cmd_path = find_path(envp, cmd1);
-		close(fd_in);
-		close(pipefd[1]);
-		execve(cmd_path, cmd1, envp);
-	}
-	else
-		
-}
