@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+         #
+#    By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/12 06:16:18 by lucasdebarn       #+#    #+#              #
-#    Updated: 2025/11/12 06:49:47 by lucasdebarn      ###   ########.fr        #
+#    Updated: 2025/11/12 14:15:55 by ludebarn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
 #library
-LIBFT = ../libft/libft.a
-PRINTF = ../ft_printf/ft_printf.a
+LIBFT = ../libft
+PRINTF = ../printf
 
 #Directory
 OBJ_DIR = object
@@ -23,13 +23,16 @@ SRC_DIR = src
 #Files src
 SRCS =	$(SRC_DIR)/ft_error.c \
 		$(SRC_DIR)/pipex.c \
-		$(SRC_DIR)/pipex_utils.c
+		$(SRC_DIR)/pipex_utils.c \
+		$(SRC_DIR)/crea_process.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 #Flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -I ./
+CFLAGS = -Wall -Wextra -Werror -g -I . -I $(LIBFT) -I $(PRINTF)/
+LIBRARYPATH = -L$(LIBFT) -L$(PRINTF)
+LIBRARIES = -lft
 
 #Custom
 COMPILE_MSG = @printf "."
@@ -42,26 +45,25 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 #Compilation
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(PRINTF) -o $(NAME)
+
+	@make -s -C $(LIBFT)
+	@make -s -C $(PRINTF)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBRARYPATH) $(LIBRARIES) -o $(NAME)
 	@echo "\n✅ Compilation terminée !"
 
-$(LIBFT):
-	@$(MAKE) -C ../libft
-$(PRINTF):
-	@(MAKE) -C ../ft_printf
 
 all: $(LIBFT) $(PRINTF) $(NAME)
 
 #Cleaning
 clean:
 	@rm -rf $(OBJ_DIR)
-	@$(MAKE) -C ../libft clean
-	@$(MAKE) -C ../printf clean
+	@make -C ../libft clean
+	@make -C ../printf clean
 
 fclean: clean
 	@rm -f $(NAME)
-	@$(MAKE) -C ../libft fclean
-	@$(MAKE) -C ../printf fclean
+	@make -C ../libft fclean
+	@make -C ../printf fclean
 
 re: fclean all
 

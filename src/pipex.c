@@ -3,26 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 16:50:58 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/12 07:20:09 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2025/11/13 15:20:41 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+int	ac_count(int ac)
+{
+	int	count;
+
+	count = 0;
+	while (count < ac)
+		count++;
+	if (count == 5)
+		return(1);
+	else
+		return(0);
+}
+
 int main(int ac, char **av, char **envp)
 {
 	t_data data;
-	pid_t	parent_pid;
-	if (ac == 5)
+
+	if (ac_count(ac) == 1)
 	{
-		data.fd_in = open_fd_in("input");
-		data.fd_out = open_fd_in("output");
+		data.fd_in = open_fd_in(av[1]);
+		data.fd_out = open_fd_out(av[ac - 1]);
 		data.av = av;
 		data.envp = envp;
-		pipe(data.pipe_fd);
-		parent_pid = crea_process(&data);
+		crea_process(&data);
 	}
+	return(0);
 }

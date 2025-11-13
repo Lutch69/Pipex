@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:05:47 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/12 07:12:16 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2025/11/13 13:09:50 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ typedef struct s_data
 }	t_data;
 
 void	ft_freetab(char **tab);
-void	ft_error(char *str);
+void	ft_error(void);
 void	close_all(t_data *data);
 int		open_fd_in(char *filename);
 int		open_fd_out(char *filename);
 char	*find_path(char **envp, char **cmd);
-pid_t	crea_process(t_data *data);
+void	crea_process(t_data *data);
+char	*ft_strjoin_path(char const *s1, char const *s2);
+void	crea_last_child (t_data *data);
 
 #endif

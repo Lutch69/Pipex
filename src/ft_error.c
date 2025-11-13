@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:06:50 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/11 20:45:28 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2025/11/13 13:09:19 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_error(char *str)
+void	ft_error(void)
 {
-	ft_putstr_fd(str, STDERR_FILENO);
+	perror(NULL);
 	exit(EXIT_FAILURE);
 }
 void	ft_freetab(char **tab)

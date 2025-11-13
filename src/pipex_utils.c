@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:09:31 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/12 05:50:06 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2025/11/13 14:24:52 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static char	*ft_strjoin_path(char const *s1, char const *s2)
+char	*ft_strjoin_path(char const *s1, char const *s2)
 {
 	char	*newstr;
-	size_t	i;
 	size_t	len1;
 	size_t	len2;
 
@@ -25,7 +24,6 @@ static char	*ft_strjoin_path(char const *s1, char const *s2)
 		return (ft_strdup(s2));
 	else if (!s2)
 		return (ft_strdup(s1));
-	i = 0;
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	newstr = malloc(sizeof(char) * (len1 + len2 + 2));
@@ -56,7 +54,7 @@ char	*find_path(char **envp, char **cmd)
 	i = 0;
 	while (path[i])
 	{
-		cmd_path = ft_strjoin_with_slash(path[i], cmd[0]);
+		cmd_path = ft_strjoin_path(path[i], cmd[0]);
 		if (access(cmd_path, X_OK) == 0)
 		{
 			ft_freetab(path);
@@ -80,9 +78,12 @@ int	open_fd_in(char *filename)
 {
 	int	fd_in;
 
-	fd_in = open("input", O_RDONLY);
+	fd_in = open(filename, O_RDONLY);
 	if (fd_in < 0)
-		ft_error("Can't open files for input\n");
+	{
+		perror(NULL);
+		exit(EXIT_FAILURE);
+	}
 	return (fd_in);
 }
 
@@ -90,9 +91,9 @@ int	open_fd_out(char *filename)
 {
 	int	fd_out;
 
-	fd_out = open("output", O_WRONLY);
+	fd_out = open(filename, O_WRONLY);
 	if (fd_out < 0)
-		ft_error("Can't open files for output\n");
+		fd_out = open(filename, O_CREAT, O_WRONLY);
 	return (fd_out);
 }
 
