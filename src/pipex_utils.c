@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:09:31 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/13 14:24:52 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:31:56 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	open_fd_out(char *filename)
 
 	fd_out = open(filename, O_WRONLY);
 	if (fd_out < 0)
-		fd_out = open(filename, O_CREAT, O_WRONLY);
+		fd_out = open(filename, O_CREAT, O_WRONLY, O_TRUNC);
 	return (fd_out);
 }
 

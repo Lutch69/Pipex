@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 04:54:00 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/13 14:41:56 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:19:35 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,32 @@ void	crea_last_child (t_data *data)
 	cmd_path = find_path(data->envp, cmd2);
 	close(data->fd_out);
 	close(data->pipe_fd[0]);
-	execve(cmd_path, cmd2, data->envp);
+	if (execve(cmd_path, cmd2, data->envp)< 0)
+	{
+		ft_freetab(cmd2);
+		free(cmd_path);
+		ft_error();
+	}
 }
 
+void	crea_child(t_data *data, int i)
+{
+	char	**cmdn;
+	char	*cmd_path;
+
+	dup2(data->pipe_fd[0], 0);
+	dup2(data->pipe_fd[1], 1);
+	cmdn = ft_split(data->av[i], ' ');
+	cmd_path = find_path(data->envp, cmdn);
+	close(data->pipe_fd[0]);
+	close(data->pipe_fd[1]);
+	if (execve(cmd_path, cmdn, data->envp) < 0)
+	{
+		ft_freetab(cmdn);
+		free(cmd_path);
+		ft_error();
+	}
+}
 void	crea_process(t_data *data)
 {
 	int	pid;
