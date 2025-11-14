@@ -6,15 +6,15 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:06:50 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/13 13:09:19 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/14 16:23:42 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_error(void)
+void	ft_error(char *errorname)
 {
-	perror(NULL);
+	perror(errorname);
 	exit(EXIT_FAILURE);
 }
 void	ft_freetab(char **tab)

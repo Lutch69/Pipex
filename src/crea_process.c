@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 04:54:00 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/13 17:19:35 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/14 16:27:32 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	crea_first_child(t_data *data)
 	{
 		ft_freetab(cmd1);
 		free(cmd_path);
-		ft_error();
+		ft_error("Execve");
 	}
 }
 
@@ -45,18 +45,18 @@ void	crea_last_child (t_data *data)
 	{
 		ft_freetab(cmd2);
 		free(cmd_path);
-		ft_error();
+		ft_error("Execve");
 	}
 }
 
-void	crea_child(t_data *data, int i)
+void	crea_child(t_data *data, int *i)
 {
 	char	**cmdn;
 	char	*cmd_path;
 
 	dup2(data->pipe_fd[0], 0);
 	dup2(data->pipe_fd[1], 1);
-	cmdn = ft_split(data->av[i], ' ');
+	cmdn = ft_split(data->av[*i], ' ');
 	cmd_path = find_path(data->envp, cmdn);
 	close(data->pipe_fd[0]);
 	close(data->pipe_fd[1]);
@@ -64,32 +64,44 @@ void	crea_child(t_data *data, int i)
 	{
 		ft_freetab(cmdn);
 		free(cmd_path);
-		ft_error();
+		ft_error("Execve");
 	}
 }
+
 void	crea_process(t_data *data)
 {
-	int	pid;
-	int	pid1;
 	pipe(data->pipe_fd);
-	pid = fork();
-	if (pid < 0)
-		ft_error();
-	if (pid == 0)
+	int	 pid;
+	int	i;
+
+	i = 2;
+	while (i <= (data->ac - 2))
 	{
-		close(data->pipe_fd[0]);
-		crea_first_child(data);
+		pid = fork();
+		crea_pid(data, &pid, &i);
+		i++;
 	}
-	pid1 = fork();
-	if (pid1 < 0)
-		ft_error();
-	if (pid1 == 0)
-	{
-		close(data->pipe_fd[1]);
-		crea_last_child(data);
-	}
-	close(data->pipe_fd[0]);
-	waitpid(pid, NULL, 0);
-	waitpid(pid1, NULL, 1);
+	// int	pid;
+	// int	pid1;
+	// pipe(data->pipe_fd);
+	// pid = fork();
+	// if (pid < 0)
+	// 	ft_error();
+	// if (pid == 0)
+	// {
+	// 	close(data->pipe_fd[0]);
+	// 	crea_first_child(data);
+	// }
+	// pid1 = fork();
+	// if (pid1 < 0)
+	// 	ft_error();
+	// if (pid1 == 0)
+	// {
+	// 	close(data->pipe_fd[1]);
+	// 	crea_last_child(data);
+	// }
+	// close(data->pipe_fd[0]);
+	// waitpid(pid, NULL, 0);
+	// waitpid(pid1, NULL, 1);
 
 }

@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:09:31 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/13 17:31:56 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/14 16:26:54 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	open_fd_in(char *filename)
 	fd_in = open(filename, O_RDONLY);
 	if (fd_in < 0)
 	{
-		perror(NULL);
+		perror("Open");
 		exit(EXIT_FAILURE);
 	}
 	return (fd_in);

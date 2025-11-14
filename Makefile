@@ -6,7 +6,7 @@
 #    By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/12 06:16:18 by lucasdebarn       #+#    #+#              #
-#    Updated: 2025/11/12 14:15:55 by ludebarn         ###   ########.fr        #
+#    Updated: 2025/11/14 16:24:29 by ludebarn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS =	$(SRC_DIR)/ft_error.c \
 		$(SRC_DIR)/pipex.c \
 		$(SRC_DIR)/pipex_utils.c \
 		$(SRC_DIR)/crea_process.c \
+		$(SRC_DIR)/pipex_utils2.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
