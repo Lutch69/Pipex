@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:09:31 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/14 16:26:54 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/15 13:54:35 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	close_all(t_data *data)
 	close(data->fd_out);
 	close(data->pipe_fd[0]);
 	close(data->pipe_fd[1]);
+	close(data->pipe_fd2[0]);
+	close(data->pipe_fd2[1]);
 }
 int	open_fd_in(char *filename)
 {
