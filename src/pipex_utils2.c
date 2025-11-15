@@ -6,12 +6,21 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:20:17 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/15 16:01:39 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/15 17:17:02 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+// char	*if_heredoc(t_data *data)
+// {
+// 	char		*buffer;
+// 	static char	*line;
+// 	while(read(0, buffer, 10) != 0)
+// 	{
+		
+// 	}
+// }
 void	ft_close(t_data *data, int *i, int flag)
 {
 	if (*i == 2)
@@ -45,22 +54,22 @@ int	crea_pipe(t_data *data, int flag)
 			ft_error("pipe2");
 	return(1);
 }
-void	crea_pid(t_data *data, int *pid, int *i, int flag)
-{
-	if (*pid < 0)
-		ft_error("Fork");
-	if (*pid == 0)
-	{
-		if (*i == 2)
-		{
-			close(data->pipe_fd[0]);
-			crea_first_child(data);
-		}
-		if (*i >= 3 && *i <= (data->ac - 3) && flag == 1)
-			crea_child(data, i, flag);
-		if (*i == (data->ac - 2))
-			crea_last_child(data, flag);
-	}
-	else
-		wait(NULL);
-}
+// void	crea_pid(t_data *data, int *pid, int *i, int flag)
+// {
+// 	if (*pid < 0)
+// 		ft_error("Fork");
+// 	if (*pid == 0)
+// 	{
+// 		if (*i == 2)
+// 		{
+// 			close(data->pipe_fd[0]);
+// 			crea_first_child(data);
+// 		}
+// 		if (*i >= 3 && *i <= (data->ac - 3) && flag == 1)
+// 			crea_child(data, i, flag);
+// 		if (*i == (data->ac - 2))
+// 			crea_last_child(data, flag);
+// 	}
+// 	else
+// 		wait(NULL);
+// }

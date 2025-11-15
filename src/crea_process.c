@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 04:54:00 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/15 16:27:51 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/15 17:03:55 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	crea_first_child(t_data *data)
 	char	*cmd_path;
 
 	dup2(data->fd_in, 0);
+	close(data->fd_in);
 	dup2(data->pipe_fd[1], 1);
+	close(data->pipe_fd[1]);
 	cmd1 = ft_split(data->av[2], ' ');
 	cmd_path = find_path(data->envp, cmd1);
-	close(data->fd_in);
-	close(data->pipe_fd[1]);
 	if (execve(cmd_path, cmd1, data->envp) < 0)
 	{
 		ft_freetab(cmd1);

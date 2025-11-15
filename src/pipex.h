@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:05:47 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/15 15:19:37 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/15 16:36:17 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_freetab(char **tab);
 void	ft_error(char *errorname);
 void	close_all(t_data *data);
 void	ft_close(t_data *data, int *i, int flag);
+int		check_here_doc(t_data *data);
 int		open_fd_in(char *filename);
 int		open_fd_out(char *filename);
 char	*find_path(char **envp, char **cmd);
