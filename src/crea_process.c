@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 04:54:00 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/17 14:31:48 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/17 16:25:06 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	crea_first_child(t_data *data)
 	{
 		ft_freetab(cmd1);
 		free(cmd_path);
-		ft_error("Execve");
+		ft_error("Execve first child");
 	}
 }
 
@@ -54,7 +54,7 @@ void	crea_last_child (t_data *data)
 	{
 		ft_freetab(cmd2);
 		free(cmd_path);
-		ft_error("Execve");
+		ft_error("Execve last child");
 	}
 }
 
@@ -79,7 +79,7 @@ void	crea_child(t_data *data)
 	{
 		ft_freetab(cmdn);
 		free(cmd_path);
-		ft_error("Execve");
+		ft_error("Execve child");
 	}
 }
 

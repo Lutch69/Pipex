@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:05:47 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/17 14:00:55 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/17 17:06:53 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_data
 	int		pipeHD[2];
 	int		fd_in;
 	int		fd_out;
-	int		pipecount;
 	int		flag_HD;
 	int		flag;
 	int		i;
@@ -43,6 +42,7 @@ void	ft_freetab(char **tab);
 void	ft_error(char *errorname);
 void	ft_close(t_data *data);
 void	dup_and_close(int oldfd, int newfd);
+void	check_cmd(t_data *data);
 
 // IF HD
 void	if_heredoc(t_data *data);

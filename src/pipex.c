@@ -6,11 +6,25 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 16:50:58 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/17 14:34:45 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/17 18:54:06 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	check_cmd(t_data *data)
+{
+	int i = 2;
+
+	while(data->av[i])
+	{
+		printf ("%ld\n", ft_strlen(data->av[i]));
+		if (ft_strncmp(data->av[i], "/usr/bin/", 9) == 0)
+			data->av[i] = ft_substr(data->av[i], 9, ft_strlen(data->av[i] - 9));
+		printf("%s\n", data->av[i]);
+		i++;
+	}
+}
 
 void	check_here_doc(t_data *data)
 {
@@ -47,11 +61,12 @@ int	main(int ac, char **av, char **envp)
 	t_data data;
 
 	data.ac = ac;
+
 	if (ac_count(ac))
 	{
-		data.pipecount = (data.ac - 3);
 		data.av = av;
 		data.envp = envp;
+		check_cmd(&data);
 		check_here_doc(&data);
 		if (data.flag_HD == 0)
 			data.fd_in = open_fd_in(av[1]);
