@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:09:31 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/15 13:54:35 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/17 14:38:22 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,6 @@ char	*find_path(char **envp, char **cmd)
 	ft_freetab(path);
 	return (NULL);
 }
-void	close_all(t_data *data)
-{
-	close(data->fd_in);
-	close(data->fd_out);
-	close(data->pipe_fd[0]);
-	close(data->pipe_fd[1]);
-	close(data->pipe_fd2[0]);
-	close(data->pipe_fd2[1]);
-}
 int	open_fd_in(char *filename)
 {
 	int	fd_in;
@@ -83,7 +74,7 @@ int	open_fd_in(char *filename)
 	fd_in = open(filename, O_RDONLY);
 	if (fd_in < 0)
 	{
-		perror("Open");
+		perror("Open fd_in");
 		exit(EXIT_FAILURE);
 	}
 	return (fd_in);
@@ -93,9 +84,12 @@ int	open_fd_out(char *filename)
 {
 	int	fd_out;
 
-	fd_out = open(filename, O_WRONLY);
+	if (access(filename, O_WRONLY) < 0)
+		fd_out = open(filename, O_CREAT | O_WRONLY);
+	else
+		fd_out = open(filename, O_WRONLY | O_TRUNC | 0644);
 	if (fd_out < 0)
-		fd_out = open(filename, O_CREAT, O_WRONLY, O_TRUNC);
+		ft_error("Open fd_out");
 	return (fd_out);
 }
 

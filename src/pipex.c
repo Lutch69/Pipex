@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 16:50:58 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/16 17:34:23 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2025/11/17 14:34:45 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,13 @@ int	main(int ac, char **av, char **envp)
 	t_data data;
 
 	data.ac = ac;
-	check_here_doc(&data);
 	if (ac_count(ac))
 	{
 		data.pipecount = (data.ac - 3);
 		data.av = av;
 		data.envp = envp;
-		if (data.flag_HD == 1)
-			if_heredoc(&data);
-		else
+		check_here_doc(&data);
+		if (data.flag_HD == 0)
 			data.fd_in = open_fd_in(av[1]);
 		data.fd_out = open_fd_out(av[ac - 1]);
 		crea_process(&data);

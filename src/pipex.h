@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:05:47 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/16 17:23:00 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2025/11/17 14:00:55 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct s_data
 // UTILS
 void	ft_freetab(char **tab);
 void	ft_error(char *errorname);
-void	close_all(t_data *data);
 void	ft_close(t_data *data);
 void	dup_and_close(int oldfd, int newfd);
 
