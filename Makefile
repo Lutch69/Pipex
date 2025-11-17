@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+         #
+#    By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/12 06:16:18 by lucasdebarn       #+#    #+#              #
-#    Updated: 2025/11/14 16:24:29 by ludebarn         ###   ########.fr        #
+#    Updated: 2025/11/16 15:07:12 by lucasdebarn      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ PRINTF = ../printf
 #Directory
 OBJ_DIR = object
 SRC_DIR = src
+GNL_DIR = GNL
 
 #Files src
 SRCS =	$(SRC_DIR)/ft_error.c \
@@ -26,6 +27,8 @@ SRCS =	$(SRC_DIR)/ft_error.c \
 		$(SRC_DIR)/pipex_utils.c \
 		$(SRC_DIR)/crea_process.c \
 		$(SRC_DIR)/pipex_utils2.c \
+		$(GNL_DIR)/get_next_line_utils.c \
+		$(GNL_DIR)/get_next_line.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 

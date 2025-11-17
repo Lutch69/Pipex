@@ -3,24 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   crea_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 04:54:00 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/15 17:03:55 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/16 17:33:18 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
 void	crea_first_child(t_data *data)
 {
 	char	**cmd1;
 	char	*cmd_path;
 
-	dup2(data->fd_in, 0);
-	close(data->fd_in);
-	dup2(data->pipe_fd[1], 1);
-	close(data->pipe_fd[1]);
-	cmd1 = ft_split(data->av[2], ' ');
+	if (data->flag_HD == 1)
+		dup_and_close(data->pipeHD[0], 0);
+	else
+		dup_and_close(data->fd_in, 0);
+	if (data->flag = 1)
+		dup_and_close(data->pipe_fd2[1], 1);
+	else
+		dup_and_close(data->pipe_fd[1], 1);
+	cmd1 = ft_split(data->av[data->i], ' ');
 	cmd_path = find_path(data->envp, cmd1);
 	if (execve(cmd_path, cmd1, data->envp) < 0)
 	{
@@ -30,17 +35,17 @@ void	crea_first_child(t_data *data)
 	}
 }
 
-void	crea_last_child (t_data *data, int flag)
+void	crea_last_child (t_data *data)
 {
 	char	**cmd2;
 	char	*cmd_path;
 
-	if (flag == 0)
+	if (data->flag == 0)
 	{
 		dup2(data->pipe_fd[0], 0);
 		close(data->pipe_fd[0]);
 	}
-	else if (flag == 1)
+	else if (data->flag == 1)
 	{
 		dup2(data->pipe_fd2[0], 0);
 		close(data->pipe_fd2[0]);
@@ -57,26 +62,22 @@ void	crea_last_child (t_data *data, int flag)
 	}
 }
 
-void	crea_child(t_data *data, int *i, int flag)
+void	crea_child(t_data *data)
 {
 	char	**cmdn;
 	char	*cmd_path;
 
-	if (flag == 0)
+	if (data->flag == 0)
 	{
-		dup2(data->pipe_fd[1], 1);
-		dup2(data->pipe_fd2[0], 0);
-		close(data->pipe_fd[1]);
-		close(data->pipe_fd2[0]);
+		dup_and_close(data->pipe_fd[1], 1);
+		dup_and_close(data->pipe_fd2[0], 0);
 	}
-	else if (flag == 1)
+	else if (data->flag == 1)
 	{
-		dup2(data->pipe_fd2[1], 1);
-		dup2(data->pipe_fd[0], 0);
-		close(data->pipe_fd2[1]);
-		close(data->pipe_fd[1]);
+		dup_and_close(data->pipe_fd2[1], 1);
+		dup_and_close(data->pipe_fd[0], 0);
 	}
-	cmdn = ft_split(data->av[*i], ' ');
+	cmdn = ft_split(data->av[data->i], ' ');
 	cmd_path = find_path(data->envp, cmdn);
 	if (execve(cmd_path, cmdn, data->envp) < 0)
 	{
@@ -88,36 +89,32 @@ void	crea_child(t_data *data, int *i, int flag)
 
 void	crea_process(t_data *data)
 {
-	int	 pid;
-	int	i;
-	int	flag;
-
-	i = 2;
-	while (i < (data->ac - 1))
+	data->i = 2;
+	while (data->i < (data->ac - 1))
 	{
-		if (i  % 2 == 0 && i < (data->ac -2))
-			flag = crea_pipe(data, 0);
-		else if (i % 2 == 1 && data->ac > 5 && i < (data->ac - 2))
-			flag = crea_pipe(data, 1);
-		pid = fork();
-		if (pid < 0)
+		if (data->i  % 2 == 0 && data->i < (data->ac -2))
+			data->flag = crea_pipe(data, 0);
+		else if (data->i % 2 == 1 && data->ac > 5 && data->i < (data->ac - 2))
+			data->flag = crea_pipe(data, 1);
+		data->pid = fork();
+		if (data->pid < 0)
 			ft_error("Fork");
-		if (pid == 0)
+		if (data->pid == 0)
 		{
-			if (i == 2)
+			if (data->i == 2)
 			{
 				close(data->pipe_fd[0]);
 				crea_first_child(data);
 			}
-			if (i == (data->ac - 2))
-				crea_last_child(data, flag);
-			if (i >= 3 && i < (data->ac - 2))
-				crea_child(data, &i, flag);
+			if (data->i == (data->ac - 2))
+				crea_last_child(data);
+			if (data->i >= 3 && data->i < (data->ac - 2))
+				crea_child(data);
 		}
-		ft_close(data, &i, flag);
-		wait(NULL);
-		i++;
+		ft_close(data);
+		data->i++;
 	}
+	wait(NULL);
 }
 	// int	pid;
 	// int	pid1;
