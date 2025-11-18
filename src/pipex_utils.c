@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:09:31 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/17 17:01:01 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/18 18:23:22 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,44 @@ char	*ft_strjoin_path(char const *s1, char const *s2)
 	return (newstr);
 }
 
-char	*find_path(char **envp, char **cmd)
+// char	*find_path(t_data *data)
+// {
+// 	int	i;
+// 	char *cmd_path;
+// 	char	**path;
+
+// 	i = 0;
+// 	if (access(data->av[data->i], X_OK) == 0)
+// 	{
+// 		cmd_path = data->av[data->i];
+// 		return(cmd_path);
+// 	}
+// 	while (ft_strncmp(data->envp[i], "PATH=", 5))
+// 		i++;
+// 	path = ft_split(data->envp[i] - 5, ':');
+
+// 	return(NULL);
+// }
+
+char	*find_path(t_data *data)
 {
 	int		i;
 	char	*cmd_path;
 	char	**path;
 
 	i = 0;
-	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
+	if ((access(data->av[data->i], F_OK | X_OK)) == 0)
+		return (data->av[data->i]);
+	while (ft_strncmp(data->envp[i], "PATH=", 5) != 0)
 		i++;
-	if (!envp[i])
+	if (!data->envp[i])
 		return (NULL);
-	path = ft_split(envp[i] + 5, ':');
+	path = ft_split(data->envp[i] + 5, ':');
 	i = 0;
-	while (path[i])
+	while (path[i] != NULL)
 	{
-		cmd_path = ft_strjoin_path(path[i], cmd[0]);
-		if (access(cmd_path, X_OK) == 0)
+		cmd_path = ft_strjoin_path(path[i], data->av[data->i]);
+		if (access(cmd_path, F_OK | X_OK) == 0)
 		{
 			ft_freetab(path);
 			return (cmd_path);
@@ -67,6 +88,7 @@ char	*find_path(char **envp, char **cmd)
 	ft_freetab(path);
 	return (NULL);
 }
+
 int	open_fd_in(char *filename)
 {
 	int	fd_in;

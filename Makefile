@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+         #
+#    By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/12 06:16:18 by lucasdebarn       #+#    #+#              #
-#    Updated: 2025/11/16 15:07:12 by lucasdebarn      ###   ########.fr        #
+#    Updated: 2025/11/18 17:38:00 by ludebarn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ GNL_DIR = GNL
 SRCS =	$(SRC_DIR)/ft_error.c \
 		$(SRC_DIR)/pipex.c \
 		$(SRC_DIR)/pipex_utils.c \
-		$(SRC_DIR)/crea_process.c \
+		$(SRC_DIR)/crea_process2.c \
 		$(SRC_DIR)/pipex_utils2.c \
 		$(GNL_DIR)/get_next_line_utils.c \
 		$(GNL_DIR)/get_next_line.c \
