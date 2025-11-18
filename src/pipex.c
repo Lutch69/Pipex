@@ -3,32 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 16:50:58 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/17 18:54:06 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/18 08:04:53 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	check_cmd(t_data *data)
+void	check_cmd(t_data *data, char **av, int ac)
 {
-	int i = 2;
+	int i = 0;
 
-	while(data->av[i])
+	data->av[i] = malloc(sizeof(char *) * ac);
+	if(!data->ac)
+		return ;
+	while(av[i])
 	{
-		printf ("%ld\n", ft_strlen(data->av[i]));
-		if (ft_strncmp(data->av[i], "/usr/bin/", 9) == 0)
-			data->av[i] = ft_substr(data->av[i], 9, ft_strlen(data->av[i] - 9));
+		if (ft_strncmp(av[i], "/bin/", 9) == 0)
+			data->av[i] = ft_substr(av[i], 9, ft_strlen(av[i]) - 9);
+		else if (ft_strncmp(av[i], "/bin/", 5) == 0)
+			data->av[i] = ft_substr(av[i], 5, ft_strlen(av[i]) - 5);
+		else
+			data->av[i] = ft_strdup(av[i]);
 		printf("%s\n", data->av[i]);
 		i++;
 	}
 }
 
-void	check_here_doc(t_data *data)
+void	check_here_doc(t_data *data, char **av)
 {
-	if (ft_strncmp(data->av[1], "here_doc", 9) == 0)
+	if (ft_strncmp(av[1], "here_doc", 9) == 0)
 	{
 		data->i = 3;
 		data->flag_HD = 1;
@@ -64,10 +70,9 @@ int	main(int ac, char **av, char **envp)
 
 	if (ac_count(ac))
 	{
-		data.av = av;
 		data.envp = envp;
-		check_cmd(&data);
-		check_here_doc(&data);
+		check_here_doc(&data, av);
+		check_cmd(&data, av, ac);
 		if (data.flag_HD == 0)
 			data.fd_in = open_fd_in(av[1]);
 		data.fd_out = open_fd_out(av[ac - 1]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:20:17 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/17 13:35:40 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/18 08:05:50 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ void	ft_close(t_data *data)
 {
 	int	check_error;
 
-	if (data->flag_HD == 1 && data->i == 3)
-		check_error = (data->pipeHD[1]);
-	else if (data->i == 2 && data->flag_HD == 0)
+	check_error = 0;
+	// if (data->flag_HD == 1 && data->i == 3)
+	// 	check_error = close(data->pipeHD[1]);
+	if (data->i == 2 && data->flag_HD == 0)
 		check_error = close(data->pipe_fd[1]);
 	else if (data->flag_HD == 0 && data->i == 2)
 		check_error = close(data->pipe_fd2[1]);

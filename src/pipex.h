@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:05:47 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/17 17:06:53 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/18 08:03:17 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ void	ft_freetab(char **tab);
 void	ft_error(char *errorname);
 void	ft_close(t_data *data);
 void	dup_and_close(int oldfd, int newfd);
-void	check_cmd(t_data *data);
+void	check_cmd(t_data *data, char **av, int ac);
 
 // IF HD
 void	if_heredoc(t_data *data);
-void	check_here_doc(t_data *data);
+void	check_here_doc(t_data *data, char **av);
 
 // OPEN
 int		open_fd_in(char *filename);
