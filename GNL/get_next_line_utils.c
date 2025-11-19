@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/14 19:49:14 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/16 16:12:34 by lucasdebarn      ###   ########.fr       */
+/*   Created: 2025/10/21 20:46:27 by ludebarn          #+#    #+#             */
+/*   Updated: 2025/11/19 15:46:29 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlcat_GNL(char *dst, char *src, size_t dstsize)
+size_t	ft_strlcat_gnl(char *dst, char *src, size_t dstsize)
 {
 	size_t	i;
 	size_t	srclen;
@@ -21,8 +21,8 @@ size_t	ft_strlcat_GNL(char *dst, char *src, size_t dstsize)
 	if (!dst || !src)
 		return (0);
 	i = 0;
-	srclen = ft_strlen_GNL(src);
-	dstlen = ft_strlen_GNL(dst);
+	srclen = ft_strlen_gnl(src);
+	dstlen = ft_strlen_gnl(dst);
 	if (dstsize <= dstlen)
 		return (dstsize + srclen);
 	while ((src[i]) && (i < dstsize - dstlen - 1))
@@ -54,13 +54,13 @@ char	*ft_strndup(char *s1, size_t len)
 	return (s2);
 }
 
-char	*ft_strchr_GNL(char *s, int c)
+char	*ft_strchr_gnl(char *s, int c)
 {
 	size_t	i;
 
-	i = 0;
 	if (!s)
 		return (NULL);
+	i = 0;
 	while (s[i])
 	{
 		if (s[i] == (unsigned char)c)
@@ -72,7 +72,7 @@ char	*ft_strchr_GNL(char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strjoin_GNL(char *s1, char *s2)
+char	*ft_strjoin_gnl(char *s1, char *s2)
 {
 	char	*newstr;
 	size_t	len1;
@@ -82,11 +82,11 @@ char	*ft_strjoin_GNL(char *s1, char *s2)
 	if (!s1 && !s2)
 		return (NULL);
 	else if (!s1)
-		return (ft_strndup(s2, ft_strlen_GNL(s2)));
+		return (ft_strndup(s2, ft_strlen_gnl(s2)));
 	else if (!s2)
-		return (ft_strndup(s1, ft_strlen_GNL(s1)));
-	len1 = ft_strlen_GNL(s1);
-	len2 = ft_strlen_GNL(s2);
+		return (ft_strndup(s1, ft_strlen_gnl(s1)));
+	len1 = ft_strlen_gnl(s1);
+	len2 = ft_strlen_gnl(s2);
 	i = -1;
 	newstr = malloc(sizeof(char) * (len1 + len2 + 1));
 	if (!newstr)
@@ -94,18 +94,18 @@ char	*ft_strjoin_GNL(char *s1, char *s2)
 	while (s1[++i])
 		newstr[i] = s1[i];
 	newstr[i] = '\0';
-	ft_strlcat_GNL(newstr, s2, len1 + len2 + 1);
+	ft_strlcat_gnl(newstr, s2, len1 + len2 + 1);
 	free(s1);
 	return (newstr);
 }
 
-size_t	ft_strlen_GNL(char *s)
+size_t	ft_strlen_gnl(char *s)
 {
 	int	i;
 
-	i = 0;
 	if (!s)
 		return (0);
+	i = 0;
 	while (s[i])
 		i++;
 	return (i);

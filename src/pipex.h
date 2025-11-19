@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:05:47 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/18 21:52:54 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2025/11/19 15:53:25 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,10 @@ typedef struct s_data
 	pid_t	pid;
 	int		ac;
 	int		pipe_fd[2];
-	int		pipe_fd2[2];
-	int		pipeHD[2];
+	int		pipehd[2];
 	int		fd_in;
 	int		fd_out;
-	int		flag_HD;
-	int		flag;
+	int		flag_hd;
 	int		i;
 	int		previous;
 }			t_data;
@@ -42,7 +40,7 @@ typedef struct s_data
 void	ft_freetab(char **tab);
 void	ft_error(char *errorname);
 void	dup_and_close(int oldfd, int newfd);
-// void	check_cmd(t_data *data, char **av, int ac);
+char	**check_cmd(t_data *data);
 
 // IF HD
 void	if_heredoc(t_data *data);
@@ -52,16 +50,13 @@ void	check_here_doc(t_data *data, char **av);
 int		open_fd_in(char *filename);
 int		open_fd_out(char *filename);
 
-// UTILITY
+// PATH
 char	*find_path(t_data *data, char **cmd);
 char	*ft_strjoin_path(char const *s1, char const *s2);
-// void	crea_pid(t_data *data, int *pid, int *i, int flag);
 
-// CREA PROCESS
+// PROCESS
 void	crea_process(t_data *data);
-int		crea_pipe(t_data *data, int flag);
-void	first_child(t_data *data);
-void	last_child (t_data *data);
+void	last_child(t_data *data);
 void	crea_child(t_data *data);
 
 #endif

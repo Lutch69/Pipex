@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:09:31 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/18 22:06:33 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2025/11/19 16:57:29 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,55 +35,34 @@ char	*ft_strjoin_path(char const *s1, char const *s2)
 		newstr[len1++] = '/';
 		newstr[len1 + 1] = '\0';
 	}
-	ft_strlcat(newstr, s2, (len1 + len2 + 1));
+	ft_strlcpy(newstr + len1, s2, (len2 + 1));
 	return (newstr);
 }
-
-// char	*find_path(t_data *data)
-// {
-// 	int	i;
-// 	char *cmd_path;
-// 	char	**path;
-
-// 	i = 0;
-// 	if (access(data->av[data->i], X_OK) == 0)
-// 	{
-// 		cmd_path = data->av[data->i];
-// 		return(cmd_path);
-// 	}
-// 	while (ft_strncmp(data->envp[i], "PATH=", 5))
-// 		i++;
-// 	path = ft_split(data->envp[i] - 5, ':');
-
-// 	return(NULL);
-// }
 
 char	*find_path(t_data *data, char **cmd)
 {
 	int		i;
+	int		j;
 	char	*cmd_path;
 	char	**path;
 
 	i = 0;
-	if ((access(cmd[0], F_OK | X_OK)) == 0)
-		return (ft_strdup(cmd[0]));
+	j = 0;
+	if ((access(data->av[data->i], F_OK | X_OK)) == 0)
+		return (ft_strdup(data->av[data->i]));
 	while (ft_strncmp(data->envp[i], "PATH=", 5) != 0)
 		i++;
 	if (!data->envp[i])
 		return (NULL);
 	path = ft_split(data->envp[i] + 5, ':');
-	i = 0;
-	while (path[i] != NULL)
+	while (path[j] != NULL)
 	{
-		cmd_path = ft_strjoin_path(path[i], cmd[0]);
+		cmd_path = ft_strjoin_path(path[j], cmd[0]);
 		if (access(cmd_path, F_OK | X_OK) == 0)
-		{
-			ft_freetab(path);
-			return (cmd_path);
-		}
+			return (ft_freetab(path), cmd_path);
 		else
 			free(cmd_path);
-		i++;
+		j++;
 	}
 	ft_freetab(path);
 	return (NULL);
@@ -114,4 +93,3 @@ int	open_fd_out(char *filename)
 		ft_error("Open fd_out");
 	return (fd_out);
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:06:50 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/18 21:53:04 by lucasdebarn      ###   ########.fr       */
+/*   Updated: 2025/11/19 15:51:37 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@ void	ft_error(char *errorname)
 	perror(errorname);
 	exit(EXIT_FAILURE);
 }
+
 void	ft_freetab(char **tab)
 {
 	int	i;
 
-	if(!(*tab || tab))
+	if (!(*tab || tab))
 		return ;
 	i = 0;
-	while(tab[i])
+	while (tab[i])
 	{
 		free(tab[i]);
 		i++;

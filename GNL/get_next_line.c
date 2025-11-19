@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
+/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/14 20:59:41 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/16 16:04:45 by lucasdebarn      ###   ########.fr       */
+/*   Created: 2025/10/21 20:24:48 by ludebarn          #+#    #+#             */
+/*   Updated: 2025/11/19 15:47:04 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,12 @@ char	*new_stash(char *stash)
 		i++;
 	if (stash[i] == '\n')
 		i++;
-	tmp = ft_strndup(&stash[i], ft_strlen_GNL(stash) - i);
+	if (stash[i] == '\0')
+	{
+		free (stash);
+		return (NULL);
+	}
+	tmp = ft_strndup(&stash[i], ft_strlen_gnl(stash) - i);
 	free(stash);
 	return (tmp);
 }
@@ -35,7 +40,7 @@ char	*extract_line(char *stash)
 	char	*res;
 
 	i = 0;
-	if (!stash)
+	if (!stash || stash[0] == '\0')
 		return (NULL);
 	while (stash[i] && stash[i] != '\n')
 		i++;
@@ -45,7 +50,7 @@ char	*extract_line(char *stash)
 	return (res);
 }
 
-char	*cpy_line(const int fd, char *stash)
+char	*read_line(const int fd, char *stash)
 {
 	int		read_size;
 	char	*temp;
@@ -61,12 +66,12 @@ char	*cpy_line(const int fd, char *stash)
 		{
 			free(temp);
 			if (stash)
-				free (stash);
+				free(stash);
 			return (NULL);
 		}
 		temp[read_size] = '\0';
-		stash = ft_strjoin_GNL(stash, temp);
-		if (ft_strchr_GNL(stash, '\n'))
+		stash = ft_strjoin_gnl(stash, temp);
+		if (ft_strchr_gnl(stash, '\n'))
 			break ;
 	}
 	free(temp);
@@ -75,20 +80,19 @@ char	*cpy_line(const int fd, char *stash)
 
 char	*get_next_line(const int fd)
 {
-	static char	*stash;
+	static char	*stash[MAX_FD];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= MAX_FD)
 		return (NULL);
-	stash = cpy_line(fd, stash);
-	if (stash && stash[0] == '\0')
+	stash[fd] = read_line(fd, stash[fd]);
+	if (stash[fd] && *stash[fd] == '\0')
 	{
-		free(stash);
-		stash = NULL;
+		free(stash[fd]);
+		stash[fd] = NULL;
 		return (NULL);
 	}
-	line = extract_line(stash);
-	stash = new_stash(stash);
+	line = extract_line(stash[fd]);
+	stash[fd] = new_stash(stash[fd]);
 	return (line);
 }
-
