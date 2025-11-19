@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 16:21:32 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/19 16:50:10 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/19 17:52:57 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	crea_child(t_data *data)
 		dup_and_close(data->previous, 0);
 	dup_and_close(data->pipe_fd[1], 1);
 	cmd = check_cmd(data);
-	if (!cmd || !cmd[0])
+	if (!cmd)
 		ft_error("Wrong cmds");
 	cmd_path = find_path(data, cmd);
 	if (execve(cmd_path, cmd, data->envp) < 0)
@@ -44,7 +44,7 @@ void	last_child(t_data *data)
 	dup_and_close(data->previous, 0);
 	dup_and_close(data->fd_out, 1);
 	last_cmd = check_cmd(data);
-	if (!last_cmd || !last_cmd[0])
+	if (!last_cmd)
 		ft_error("Wrong cmds");
 	cmd_path = find_path(data, last_cmd);
 	if (execve(cmd_path, last_cmd, data->envp) < 0)

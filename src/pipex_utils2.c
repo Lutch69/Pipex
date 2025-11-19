@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:20:17 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/19 17:16:42 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/19 18:02:05 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ char	**check_cmd(t_data *data)
 		ret = malloc(sizeof(char *) * 2);
 		while (temp[i])
 			i++;
-		while (temp[--i] != '/')
+		while (temp[i] != '/')
+			i--;
 		ret[0] = ft_substr(temp, i, (ft_strlen(temp) - i));
 		ret[1] = NULL;
 	}
@@ -50,7 +51,7 @@ void	if_heredoc(t_data *data)
 	while (1)
 	{
 		line = get_next_line(0);
-		if (ft_strncmp(line, data->av[2], ft_strlen(data->av[2])) == 0)
+		if (ft_strncmp(line, data->av[2], (ft_strlen(line) - 1)) == 0)
 		{
 			free(line);
 			close(data->pipehd[1]);
