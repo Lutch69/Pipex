@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:09:31 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/18 18:23:22 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/18 22:06:33 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ char	*ft_strjoin_path(char const *s1, char const *s2)
 // 	return(NULL);
 // }
 
-char	*find_path(t_data *data)
+char	*find_path(t_data *data, char **cmd)
 {
 	int		i;
 	char	*cmd_path;
 	char	**path;
 
 	i = 0;
-	if ((access(data->av[data->i], F_OK | X_OK)) == 0)
-		return (data->av[data->i]);
+	if ((access(cmd[0], F_OK | X_OK)) == 0)
+		return (ft_strdup(cmd[0]));
 	while (ft_strncmp(data->envp[i], "PATH=", 5) != 0)
 		i++;
 	if (!data->envp[i])
@@ -75,7 +75,7 @@ char	*find_path(t_data *data)
 	i = 0;
 	while (path[i] != NULL)
 	{
-		cmd_path = ft_strjoin_path(path[i], data->av[data->i]);
+		cmd_path = ft_strjoin_path(path[i], cmd[0]);
 		if (access(cmd_path, F_OK | X_OK) == 0)
 		{
 			ft_freetab(path);

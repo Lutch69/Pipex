@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucasdebarnot <lucasdebarnot@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:05:47 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/18 20:39:47 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/18 21:52:54 by lucasdebarn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,12 @@ typedef struct s_data
 	int		flag_HD;
 	int		flag;
 	int		i;
-	int		*fdtemp;
+	int		previous;
 }			t_data;
 
 // UTILS
 void	ft_freetab(char **tab);
-void	ft_free(t_data *data);
 void	ft_error(char *errorname);
-void	ft_close(t_data *data);
 void	dup_and_close(int oldfd, int newfd);
 // void	check_cmd(t_data *data, char **av, int ac);
 
@@ -55,7 +53,7 @@ int		open_fd_in(char *filename);
 int		open_fd_out(char *filename);
 
 // UTILITY
-char	*find_path(t_data *data);
+char	*find_path(t_data *data, char **cmd);
 char	*ft_strjoin_path(char const *s1, char const *s2);
 // void	crea_pid(t_data *data, int *pid, int *i, int flag);
 
