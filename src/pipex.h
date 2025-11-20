@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:05:47 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/19 15:53:25 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/20 18:19:39 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct s_data
 {
 	char	**av;
 	char	**envp;
+	char	**cmd;
+	char	*cmd_path;
 	pid_t	pid;
 	int		ac;
 	int		pipe_fd[2];
@@ -34,9 +36,11 @@ typedef struct s_data
 	int		flag_hd;
 	int		i;
 	int		previous;
+	int		*status;
 }			t_data;
 
 // UTILS
+void	ft_close_all(t_data *data);
 void	ft_freetab(char **tab);
 void	ft_error(char *errorname);
 void	dup_and_close(int oldfd, int newfd);

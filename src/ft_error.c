@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:06:50 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/19 17:51:10 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/20 17:55:28 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,12 @@ void	ft_freetab(char **tab)
 		i++;
 	}
 	free(tab);
+}
+
+void	ft_close_all(t_data *data)
+{
+	close(data->pipe_fd[0]);
+	close(data->pipe_fd[1]);
+	close(data->previous);
+	close(data->fd_out);
 }

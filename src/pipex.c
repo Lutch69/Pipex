@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 16:50:58 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/19 16:48:07 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/20 17:51:25 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,14 @@ int	main(int ac, char **av, char **envp)
 		data.envp = envp;
 		check_here_doc(&data, av);
 		data.av = av;
-		data.fd_out = open_fd_out(av[ac - 1]);
+
 		if (data.flag_hd == 0)
 		{
 			data.fd_in = open_fd_in(av[1]);
 			data.previous = data.fd_in;
 		}
-		else
+		data.fd_out = open_fd_out(av[ac - 1]);
+		if (data.flag_hd == 1)
 			if_heredoc(&data);
 		crea_process(&data);
 	}
