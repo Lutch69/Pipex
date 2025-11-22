@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 18:05:47 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/22 14:05:26 by ludebarn         ###   ########.fr       */
+/*   Created: 2025/11/22 12:34:11 by ludebarn          #+#    #+#             */
+/*   Updated: 2025/11/22 14:58:16 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include "../libft/libft.h"
 # include "../printf/ft_printf.h"
+# include "get_next_line.h"
 
 typedef struct s_data
 {
@@ -29,9 +30,12 @@ typedef struct s_data
 	pid_t	pid;
 	int		ac;
 	int		pipe_fd[2];
+	int		pipehd[2];
 	int		fd_in;
 	int		fd_out;
+	int		flag_hd;
 	int		i;
+	int		previous;
 	int		*status;
 }			t_data;
 
@@ -44,6 +48,10 @@ char	**check_cmd(t_data *data);
 void	wait_child(void);
 void	set_up_cmd(t_data *data);
 
+// IF HD
+void	if_heredoc(t_data *data);
+void	check_here_doc(t_data *data, char **av);
+
 // OPEN
 int		open_fd_in(char *filename);
 int		open_fd_out(char *filename);
@@ -55,6 +63,6 @@ char	*ft_strjoin_path(char const *s1, char const *s2);
 // PROCESS
 void	crea_process(t_data *data);
 void	last_child(t_data *data);
-void	first_child(t_data *data);
+void	crea_child(t_data *data);
 
 #endif

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   ft_error_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 18:06:50 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/22 13:51:42 by ludebarn         ###   ########.fr       */
+/*   Created: 2025/11/22 12:49:42 by ludebarn          #+#    #+#             */
+/*   Updated: 2025/11/22 17:38:47 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	ft_error(char *errorname)
 {
@@ -33,8 +33,9 @@ void	ft_freetab(char **tab)
 
 void	ft_close_all(t_data *data)
 {
-	close(data->pipe_fd[0]);
-	close(data->pipe_fd[1]);
+	if (data->flag_hd == 1 && data->i == 3)
+		close(data->pipehd[0]);
+	else if (data->i > 2)
+		close(data->previous);
 	close(data->fd_out);
-	close(data->fd_in);
 }

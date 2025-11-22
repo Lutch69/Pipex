@@ -1,54 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   crea_process2.c                                    :+:      :+:    :+:   */
+/*   crea_process_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/18 16:21:32 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/22 14:50:03 by ludebarn         ###   ########.fr       */
+/*   Created: 2025/11/22 12:33:26 by ludebarn          #+#    #+#             */
+/*   Updated: 2025/11/22 16:14:14 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
-void	set_up_cmd(t_data *data)
+void	crea_child(t_data *data)
 {
-	data->cmd = check_cmd(data);
-	if (!data->cmd || !*data->cmd)
-	{
-		ft_close_all(data);
-		wait(NULL);
-		ft_error("Wrongs cmd");
-	}
-	data->cmd_path = find_path(data, data->cmd);
-	if (!data->cmd_path)
-	{
-		ft_freetab(data->cmd);
-		free(data->cmd_path);
-		ft_close_all(data);
-		wait(NULL);
-		ft_error("Wrongs cmd");
-	}
-}
-
-void	wait_child(void)
-{
-	int	waitnb = 1;
-	int	status;
-
-	status = 0;
-	while (waitnb > 0)
-	{
-		waitnb = wait(&status);
-		if (WIFEXITED(status) && WEXITSTATUS(status))
-				exit(EXIT_FAILURE);
-	}
-}
-
-void	first_child(t_data *data)
-{
-	dup_and_close(data->fd_in, 0);
+	close(data->pipe_fd[0]);
+	if (data->flag_hd == 1 && data->i == 3)
+		dup_and_close(data->pipehd[0], 0);
+	else
+		dup_and_close(data->previous, 0);
 	dup_and_close(data->pipe_fd[1], 1);
 	if (execve(data->cmd_path, data->cmd, data->envp) < 0)
 	{
@@ -60,7 +30,8 @@ void	first_child(t_data *data)
 
 void	last_child(t_data *data)
 {
-	dup_and_close(data->pipe_fd[0], 0);
+	close(data->pipe_fd[0]);
+	dup_and_close(data->previous, 0);
 	dup_and_close(data->fd_out, 1);
 	if (execve(data->cmd_path, data->cmd, data->envp) < 0)
 	{
@@ -72,20 +43,23 @@ void	last_child(t_data *data)
 
 void	crea_process(t_data *data)
 {
-	pipe(data->pipe_fd);
 	while (data->i < data->ac - 1)
 	{
 		set_up_cmd(data);
+		pipe(data->pipe_fd);
 		data->pid = fork();
 		if (data->pid == 0)
 		{
 			if (data->i == data->ac - 2)
 				last_child(data);
-			if (data->i < data->ac - 2)
-				first_child(data);
+			else if (data->i < data->ac - 2)
+				crea_child(data);
 		}
-		if (data->i == 2)
-			close(data->fd_in);
+		if (data->flag_hd == 1 && data->i == 3)
+			close(data->pipehd[0]);
+		else
+			close(data->previous);
+		data->previous = data->pipe_fd[0];
 		close(data->pipe_fd[1]);
 		ft_freetab(data->cmd);
 		free(data->cmd_path);
