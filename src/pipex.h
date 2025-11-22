@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:05:47 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/22 18:04:22 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/22 18:47:12 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	dup_and_close(int oldfd, int newfd);
 char	**check_cmd(t_data *data);
 void	wait_child(void);
 void	set_up_cmd(t_data *data);
+void	cmd_trim(t_data *data);
 
 // OPEN
 int		open_fd_in(char *filename);

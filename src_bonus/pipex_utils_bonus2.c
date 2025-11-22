@@ -6,11 +6,27 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 11:53:33 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/22 18:04:37 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/22 18:53:26 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
+
+void	cmd_trim(t_data *data)
+{
+	char *temp;
+
+	if (data->cmd[1] != NULL)
+	{
+		if (ft_strchr(data->cmd[1], 39))
+		{
+			temp = ft_strtrim(data->cmd[1], "'");
+			free(data->cmd[1]);
+			data->cmd[1] = ft_strdup(temp);
+			free(temp);
+		}
+	}
+}
 
 void	set_up_cmd(t_data *data)
 {
@@ -22,6 +38,7 @@ void	set_up_cmd(t_data *data)
 		ft_close_all(data);
 		ft_error("Command not found");
 	}
+	cmd_trim(data);
 	data->cmd_path = find_path(data, data->cmd);
 	if (!data->cmd || !*data->cmd || !data->cmd_path)
 	{

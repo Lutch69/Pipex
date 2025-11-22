@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 12:34:11 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/22 18:05:03 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/22 18:47:14 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	dup_and_close(int oldfd, int newfd);
 char	**check_cmd(t_data *data);
 void	wait_child(void);
 void	set_up_cmd(t_data *data);
+void	cmd_trim(t_data *data);
 
 // IF HD
 void	if_heredoc(t_data *data);
