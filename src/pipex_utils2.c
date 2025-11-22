@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:20:17 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/22 17:46:42 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/22 18:02:16 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	set_up_cmd(t_data *data)
 	data->cmd = check_cmd(data);
 	if (!data->cmd || !*data->cmd)
 	{
-		if(data->i == 3)
+		if (data->i == 3)
 			wait(NULL);
 		ft_close_all(data);
 		ft_error("Wrongs cmd");
@@ -36,15 +36,16 @@ void	set_up_cmd(t_data *data)
 
 void	wait_child(void)
 {
-	int	waitnb = 1;
+	int	waitnb;
 	int	status;
 
+	waitnb = 1;
 	status = 0;
 	while (waitnb > 0)
 	{
 		waitnb = wait(&status);
 		if (WIFEXITED(status) && WEXITSTATUS(status))
-				exit(EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 	}
 }
 
@@ -59,7 +60,7 @@ char	**check_cmd(t_data *data)
 	if (!*ret || !ret)
 	{
 		free(ret);
-		return(NULL);
+		return (NULL);
 	}
 	if (access(ret[0], F_OK | X_OK) == 0)
 	{

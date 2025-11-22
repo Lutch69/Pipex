@@ -6,12 +6,13 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 12:34:11 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/22 14:58:16 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/22 18:05:03 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
+
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
@@ -36,7 +37,6 @@ typedef struct s_data
 	int		flag_hd;
 	int		i;
 	int		previous;
-	int		*status;
 }			t_data;
 
 // UTILS

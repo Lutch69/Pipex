@@ -6,12 +6,13 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:05:47 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/22 14:05:26 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/22 18:04:22 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
+
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
@@ -32,7 +33,6 @@ typedef struct s_data
 	int		fd_in;
 	int		fd_out;
 	int		i;
-	int		*status;
 }			t_data;
 
 // UTILS

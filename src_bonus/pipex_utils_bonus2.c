@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 11:53:33 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/22 15:59:04 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/22 18:04:37 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ char	**check_cmd(t_data *data)
 	char	*temp;
 
 	i = 0;
-	if(!data->av[data->i] || !*data->av[data->i])
-		return(NULL);
+	if (!data->av[data->i] || !*data->av[data->i])
+		return (NULL);
 	else
 		ret = ft_split(data->av[data->i], ' ');
 	if (access(ret[0], F_OK | X_OK) == 0)
@@ -86,14 +86,15 @@ void	if_heredoc(t_data *data)
 
 void	wait_child(void)
 {
-	int	waitnb = 1;
+	int	waitnb;
 	int	status;
 
+	waitnb = 1;
 	status = 0;
 	while (waitnb > 0)
 	{
 		waitnb = wait(&status);
 		if (WIFEXITED(status) && WEXITSTATUS(status))
-				exit(EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 	}
 }
