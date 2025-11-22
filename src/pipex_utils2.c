@@ -6,11 +6,47 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:20:17 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/22 14:49:39 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/22 17:46:42 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	set_up_cmd(t_data *data)
+{
+	data->cmd = check_cmd(data);
+	if (!data->cmd || !*data->cmd)
+	{
+		if(data->i == 3)
+			wait(NULL);
+		ft_close_all(data);
+		ft_error("Wrongs cmd");
+	}
+	data->cmd_path = find_path(data, data->cmd);
+	if (!data->cmd_path)
+	{
+		if (data->i == 3)
+			wait(NULL);
+		ft_freetab(data->cmd);
+		free(data->cmd_path);
+		ft_close_all(data);
+		ft_error("Wrongs cmd");
+	}
+}
+
+void	wait_child(void)
+{
+	int	waitnb = 1;
+	int	status;
+
+	status = 0;
+	while (waitnb > 0)
+	{
+		waitnb = wait(&status);
+		if (WIFEXITED(status) && WEXITSTATUS(status))
+				exit(EXIT_FAILURE);
+	}
+}
 
 char	**check_cmd(t_data *data)
 {

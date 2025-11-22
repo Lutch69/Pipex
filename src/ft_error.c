@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:06:50 by lucasdebarn       #+#    #+#             */
-/*   Updated: 2025/11/22 13:51:42 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/22 17:48:49 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,12 @@ void	ft_freetab(char **tab)
 
 void	ft_close_all(t_data *data)
 {
+
+	if (data->i == 2)
+	{
+		close(data->pipe_fd[1]);
+		close(data->fd_in);
+	}
 	close(data->pipe_fd[0]);
-	close(data->pipe_fd[1]);
 	close(data->fd_out);
-	close(data->fd_in);
 }
