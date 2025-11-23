@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 11:49:39 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/22 11:50:05 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/23 17:07:58 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,22 @@ char	*find_path(t_data *data, char **cmd)
 	}
 	ft_freetab(path);
 	return (NULL);
+}
+
+void	cmd_trim(t_data *data)
+{
+	char	*temp;
+
+	if (data->cmd[1] != NULL)
+	{
+		if (ft_strchr(data->cmd[1], 39))
+		{
+			temp = ft_strtrim(data->cmd[1], "'");
+			free(data->cmd[1]);
+			data->cmd[1] = ft_strdup(temp);
+			free(temp);
+		}
+	}
 }
 
 int	open_fd_in(char *filename)

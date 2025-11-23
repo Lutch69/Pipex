@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:20:17 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/22 18:44:12 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/23 17:07:48 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	cmd_trim(t_data *data)
 {
-	char *temp;
+	char	*temp;
 
 	if (data->cmd[1] != NULL)
 	{
