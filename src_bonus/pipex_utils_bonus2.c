@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 11:53:33 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/23 17:07:15 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/11/25 15:40:24 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	if_heredoc(t_data *data)
 	{
 		line = get_next_line(0);
 		if (ft_strncmp(line, data->av[2], (ft_strlen(line) - 1)) == 0
-			&& line[0] != '\n')
+			&& line[0] != '\n' && (ft_strlen(data->av[2]) == (ft_strlen(line) - 1)))
 		{
 			free(line);
 			close(data->pipehd[1]);

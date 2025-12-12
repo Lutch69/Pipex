@@ -6,7 +6,7 @@
 /*   By: ludebarn <ludebarn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:20:17 by ludebarn          #+#    #+#             */
-/*   Updated: 2025/11/23 17:07:48 by ludebarn         ###   ########.fr       */
+/*   Updated: 2025/12/02 16:23:04 by ludebarn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	set_up_cmd(t_data *data)
 		if (data->i == 3)
 			wait(NULL);
 		ft_close_all(data);
-		ft_error("Wrongs cmd");
+		ft_putstr_fd("Wrongs cmd", 2);
+		exit(EXIT_FAILURE);
 	}
 	cmd_trim(data);
 	data->cmd_path = find_path(data, data->cmd);
@@ -47,7 +48,8 @@ void	set_up_cmd(t_data *data)
 		ft_freetab(data->cmd);
 		free(data->cmd_path);
 		ft_close_all(data);
-		ft_error("Wrongs cmd");
+		ft_putstr_fd("Wrongs cmd", 2);
+		exit(EXIT_FAILURE);
 	}
 }
 
